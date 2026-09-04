@@ -1,0 +1,9 @@
+[project]
+name = "aegis-repo-graph"
+version = "0.1.0"
+description = "FLS-aligned Artifact Graph of beyond-repair repositories"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
