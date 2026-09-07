@@ -14,9 +14,15 @@ locks a tabular inventory, but **repositories themselves were not yet FLS artifa
 - Validity = unique identities + referential integrity + claim caps on ARCHIVED/SUPERSEDED.
 
 Not a live GitHub crawler. Snapshot dated 2026-09-04.
+See [CLAIM_STATUS.md](CLAIM_STATUS.md).
 
 ```bash
 pip install -r requirements.txt
 python -m graph.engine
 python -m pytest -q
 ```
+
+## Sweep-094
+
+Classification: **RESEARCH**. Last product CI: run 33928255440 success on `e1dc394`.
+No code mutation this cycle (docs + claim cap only).
