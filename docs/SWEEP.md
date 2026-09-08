@@ -1,8 +1,8 @@
-# Portfolio sweep — 2026-09-04
+# Portfolio sweep — 2026-09-04 (locked snapshot)
 
-Authenticated user: `beyond-repair` (63 public + private installation set).
+Authenticated user: `beyond-repair` (63 public + private installation set at lock).
 
-## Active spine
+## Active spine (at lock)
 
 | Repo | Functions | Gap closed by this repo |
 |------|-----------|-------------------------|
@@ -22,3 +22,7 @@ Authenticated user: `beyond-repair` (63 public + private installation set).
 
 Physics (CFT, coherence-drive, Ware) stays RESEARCH / claim ≤2.
 Archived market bots stay claim 0.
+
+## Sweep-125 note
+
+Re-audit 2026-09-08: classification RESEARCH (governance source of truth). CI green. Catalog remains 2026-09-04 lock; live expansion is operator/queue item only.
