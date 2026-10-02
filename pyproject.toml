@@ -1,9 +1,20 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
 [project]
 name = "aegis-repo-graph"
-version = "0.1.0"
-description = "FLS-aligned Artifact Graph of beyond-repair repositories"
+version = "0.1.1"
+description = "FLS-aligned Artifact Graph of beyond-repair repositories. Locked snapshot validator, not a live crawler."
+readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+license = {text = "MIT"}
+
+[project.optional-dependencies]
+dev = ["pytest==8.3.5"]
+
+[tool.setuptools.packages.find]
+include = ["graph*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

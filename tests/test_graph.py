@@ -1,13 +1,22 @@
+import subprocess
+import sys
+from pathlib import Path
+
+from graph import __version__
 from graph.catalog import build_graph
 from graph.engine import validate
 from graph.model import Artifact, ArtifactGraph, Relationship
+
+ROOT = Path(__file__).resolve().parents[1]
+LOCKED_ARTIFACTS = 73
+LOCKED_RELATIONSHIPS = 21
 
 
 def test_locked_graph_is_valid():
     report = validate()
     assert report.ok, report.errors
-    assert report.artifact_count >= 70
-    assert report.relationship_count >= 15
+    assert report.artifact_count == LOCKED_ARTIFACTS
+    assert report.relationship_count == LOCKED_RELATIONSHIPS
 
 
 def test_identities_unique():
@@ -47,3 +56,71 @@ def test_claim_cap_on_archived():
     )
     report = validate(bad)
     assert not report.ok
+    assert any("archived/superseded claim must be" in e for e in report.errors)
+
+
+def test_bool_claim_is_rejected():
+    bad = ArtifactGraph(
+        artifacts={
+            "repo:x": Artifact(
+                identity="repo:x",
+                kind="RepositoryArtifact",
+                properties={"name": "x", "cluster": "legacy", "lifecycle": "ACTIVE", "claim": True, "functions": ("f",)},
+            )
+        },
+        relationships=[],
+    )
+    report = validate(bad)
+    assert not report.ok
+    assert any("claim must be 0-5" in e for e in report.errors)
+
+
+def test_string_functions_are_rejected():
+    bad = ArtifactGraph(
+        artifacts={
+            "repo:x": Artifact(
+                identity="repo:x",
+                kind="RepositoryArtifact",
+                properties={"name": "x", "cluster": "legacy", "lifecycle": "ACTIVE", "claim": 1, "functions": "not-a-list"},
+            )
+        },
+        relationships=[],
+    )
+    report = validate(bad)
+    assert not report.ok
+    assert any("functions required" in e for e in report.errors)
+
+
+def test_unknown_lifecycle_and_cluster_are_rejected():
+    bad = ArtifactGraph(
+        artifacts={
+            "repo:x": Artifact(
+                identity="repo:x",
+                kind="RepositoryArtifact",
+                properties={"name": "x", "cluster": "not-a-cluster", "lifecycle": "SHIPPED", "claim": 1, "functions": ("f",)},
+            )
+        },
+        relationships=[],
+    )
+    report = validate(bad)
+    assert not report.ok
+    assert any("unknown lifecycle" in e for e in report.errors)
+    assert any("unknown cluster" in e for e in report.errors)
+
+
+def test_public_version():
+    assert __version__ == "0.1.1"
+
+
+def test_module_entrypoint_matches_engine():
+    proc = subprocess.run(
+        [sys.executable, "-m", "graph"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert proc.returncode == 0, proc.stderr
+    assert f"artifacts={LOCKED_ARTIFACTS} relationships={LOCKED_RELATIONSHIPS}" in proc.stdout
+    assert "OK" in proc.stdout
+    assert proc.stderr == ""

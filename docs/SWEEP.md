@@ -26,3 +26,5 @@ Archived market bots stay claim 0.
 ## Sweep-125 note
 
 Re-audit 2026-09-08: classification RESEARCH (governance source of truth). CI green. Catalog remains 2026-09-04 lock; live expansion is operator/queue item only.
+
+Repair v0.1.1 (installable checker) does not expand this lock and does not change catalog rows.

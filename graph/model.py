@@ -10,6 +10,23 @@ ALLOWED_KINDS = frozenset({"RepositoryArtifact", "GovernanceArtifact", "QueueArt
 ALLOWED_REL_KINDS = frozenset(
     {"GOVERNED_BY", "SUPERSEDES", "COMPATIBLE_WITH", "IMPLEMENTS", "CLUSTER_PEER"}
 )
+ALLOWED_LIFECYCLES = frozenset(
+    {"ACTIVE", "EXPERIMENTAL", "RESEARCH", "ARCHIVED", "SUPERSEDED"}
+)
+ALLOWED_CLUSTERS = frozenset(
+    {
+        "governance",
+        "integrity",
+        "cognitive-substrate",
+        "agent-runtime",
+        "physics-cft",
+        "simulation-games",
+        "health",
+        "security-ops",
+        "markets",
+        "legacy",
+    }
+)
 
 
 @dataclass(frozen=True)
