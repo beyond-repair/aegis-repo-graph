@@ -1,3 +1,9 @@
-"""FLS-aligned repository Artifact Graph (claim 3 snapshot)."""
+"""FLS-aligned repository Artifact Graph (locked-snapshot validator).
 
-__version__ = "0.1.0"
+Do not import ``graph.engine`` here. ``python -m graph.engine`` must load that
+module as ``__main__``; importing it during package init emits a RuntimeWarning.
+"""
+
+__version__ = "0.1.1"
+
+__all__ = ["__version__"]

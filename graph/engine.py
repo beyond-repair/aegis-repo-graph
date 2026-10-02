@@ -5,7 +5,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from .catalog import build_graph
-from .model import ALLOWED_KINDS, ALLOWED_REL_KINDS, ArtifactGraph
+from .model import (
+    ALLOWED_CLUSTERS,
+    ALLOWED_KINDS,
+    ALLOWED_LIFECYCLES,
+    ALLOWED_REL_KINDS,
+    ArtifactGraph,
+)
 
 
 @dataclass(frozen=True)
@@ -29,14 +35,34 @@ def validate(graph: ArtifactGraph | None = None) -> GraphReport:
         if art.kind not in ALLOWED_KINDS:
             errors.append(f"{ident}: unknown kind {art.kind}")
         if art.kind == "RepositoryArtifact":
+            if not ident.startswith("repo:"):
+                errors.append(f"{ident}: repository identity must start with repo:")
             claim = art.properties.get("claim", -1)
             life = art.properties.get("lifecycle")
-            if not isinstance(claim, int) or claim < 0 or claim > 5:
+            cluster = art.properties.get("cluster")
+            fns = art.properties.get("functions")
+            claim_ok = (
+                not isinstance(claim, bool)
+                and isinstance(claim, int)
+                and 0 <= claim <= 5
+            )
+            if not claim_ok:
                 errors.append(f"{ident}: claim must be 0-5")
-            if life in {"ARCHIVED", "SUPERSEDED"} and isinstance(claim, int) and claim > 1:
+            if life not in ALLOWED_LIFECYCLES:
+                errors.append(f"{ident}: unknown lifecycle {life!r}")
+            if life in {"ARCHIVED", "SUPERSEDED"} and claim_ok and claim > 1:
                 errors.append(f"{ident}: archived/superseded claim must be ≤1")
-            if not art.properties.get("functions"):
+            if cluster not in ALLOWED_CLUSTERS:
+                errors.append(f"{ident}: unknown cluster {cluster!r}")
+            if (
+                isinstance(fns, (str, bytes))
+                or not isinstance(fns, (tuple, list))
+                or len(fns) == 0
+                or any(not isinstance(item, str) or not item.strip() for item in fns)
+            ):
                 errors.append(f"{ident}: functions required")
+        elif art.kind == "QueueArtifact" and not ident.startswith("queue:"):
+            errors.append(f"{ident}: queue identity must start with queue:")
 
     ids = g.identities()
     for rel in g.relationships:
