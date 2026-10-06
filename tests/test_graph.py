@@ -109,7 +109,7 @@ def test_unknown_lifecycle_and_cluster_are_rejected():
 
 
 def test_public_version():
-    assert __version__ == "0.1.1"
+    assert __version__ == "0.1.2"
 
 
 def test_module_entrypoint_matches_engine():
@@ -124,3 +124,45 @@ def test_module_entrypoint_matches_engine():
     assert f"artifacts={LOCKED_ARTIFACTS} relationships={LOCKED_RELATIONSHIPS}" in proc.stdout
     assert "OK" in proc.stdout
     assert proc.stderr == ""
+
+
+def test_observed_drift_does_not_mutate_lock():
+    from graph.drift import name_drift
+
+    before = validate()
+    drift = name_drift()
+    after = validate()
+    assert before.ok and after.ok
+    assert after.artifact_count == LOCKED_ARTIFACTS
+    assert after.relationship_count == LOCKED_RELATIONSHIPS
+    assert drift["catalog_repository_count"] == 72
+    assert drift["observed_count"] == 83
+    assert drift["observed_only"] == (
+        "ADL-Nexus",
+        "CFTv3.3-IQG-Unified-Framework",
+        "Open-Energy-Fusion",
+        "RealityOS",
+        "Sovereign-Epistemic-Reality-Engine",
+        "adl-capability-matrix",
+        "adl-function-census",
+        "atomicdreamlabs",
+        "bloch-coherence-factor2",
+        "finite-gasket-spectral-derivatives",
+        "informational-flux-identity",
+        "mend",
+        "mendthegame",
+        "os-family-constitution-map",
+        "scale-functional-I",
+        "seem-identity-unifier",
+        "seem-sunder-bridge",
+        "sunder-cleanroom-vsa-adapter",
+    )
+    assert drift["catalog_only"] == (
+        "CFT-v3.3-IQG-Unified-Framework",
+        "MyCore",
+        "SuperAGI",
+        "bolt.new",
+        "clean-room-skill-export",
+        "docs",
+        "sunder-aegis-bridge",
+    )
