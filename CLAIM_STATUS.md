@@ -17,14 +17,17 @@
 - FLS production conformance of every beyond-repair repository, or an FLS compiler.
 - Host integrity, firmware measurement, or Watchman/Restoration pillars (those were sketched in forge-aegis / AEGIS-Project-Nehemiah-; this repo does not copy them).
 - SUPERSEDES of ADL-Portfolio-Census or forge-aegis.
+- Census compatible-build status `built`. ADL-Portfolio-Census still locks this name as `not_built`. Existence and a green validator are not that contract.
 
 ## Evidence precedence
 
 1. Deterministic `python -m graph.engine` and `python -m pytest -q` on a clean clone of the merged default branch.
 2. The locked catalog in `graph/catalog.py` (rows not rewritten by the installability repair).
-3. Historical CI run 34072230795 succeeded on older head `1a5a2fde`. That run is not evidence for later commits.
+3. Current head evidence: CI run 37069800025 completed success on `96ca55789c3e8656d9b4052392d9000c69bc4c17`. Job `test` 111046279932 success (`python -m graph.engine`, `python -m pytest -q`). Local re-run on that SHA: engine printed `artifacts=73 relationships=21` and `OK`; pytest 10 passed.
+4. Historical CI run 34072230795 succeeded on older head `1a5a2fde`. That run is not evidence for `96ca557`.
 
 ## Notes
 
 - Sweep-125 classified the repo RESEARCH and did not mutate the catalog.
 - v0.1.1 makes the package installable (`pip install -e ".[dev]"`), aligns the README claim line with the ≤1 badge, and rejects bool claims, bare-string function fields, and unknown cluster/lifecycle values. Catalog rows are unchanged.
+- Sweep-228 records head CI only. No catalog edit. No version bump. No tag. No archive.
