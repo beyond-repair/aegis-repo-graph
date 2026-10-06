@@ -1,7 +1,7 @@
 <div align="center">
 
-[![Lifecycle](https://img.shields.io/badge/●_RESEARCH-a855f7?style=for-the-badge&labelColor=0f0f23)](https://github.com/beyond-repair/ADL-Governance)
-[![Claim](https://img.shields.io/badge/Claim_≤1-22c55e?style=for-the-badge&labelColor=0f0f23)](https://github.com/beyond-repair/ADL-Governance/blob/main/docs/CLAIM_VALIDATION.md)
+[![Lifecycle](https://img.shields.io/badge/%E2%97%8F_RESEARCH-a855f7?style=for-the-badge&labelColor=0f0f23)](https://github.com/beyond-repair/ADL-Governance)
+[![Claim](https://img.shields.io/badge/Claim_%E2%89%A41-22c55e?style=for-the-badge&labelColor=0f0f23)](https://github.com/beyond-repair/ADL-Governance/blob/main/docs/CLAIM_VALIDATION.md)
 [![Governance](https://img.shields.io/badge/ADL--Governance-7c3aed?style=for-the-badge&labelColor=0f0f23)](https://github.com/beyond-repair/ADL-Governance)
 
 ```
@@ -31,7 +31,7 @@ The banner and this line agree. A green run does not raise the claim. The catalo
 - Typed Relationships: `GOVERNED_BY`, `SUPERSEDES`, `COMPATIBLE_WITH`, `IMPLEMENTS`, `CLUSTER_PEER`.
 - Validity = unique identities + referential integrity + claim caps on ARCHIVED/SUPERSEDED + allowed cluster/lifecycle + a non-empty function list (a bare string does not count) + integer claim 0–5 (`True`/`False` do not count).
 
-Not a live GitHub crawler. Not an FLS compiler. Not a copy of forge-aegis and not a Nehemiah host. The catalog is the locked 2026-09-04 snapshot: **72** repository artifacts, **1** queue artifact, **21** relationships (`artifacts=73`). It does not prove a later 81-row portfolio search is complete.
+Not a live GitHub crawler. Not an FLS compiler. Not a copy of forge-aegis and not a Nehemiah host. The catalog is the locked 2026-09-04 snapshot: **72** repository artifacts, **1** queue artifact, **21** relationships (`artifacts=73`). It does not prove a later 83-name portfolio search is complete.
 See [CLAIM_STATUS.md](CLAIM_STATUS.md).
 
 Nothing to configure. The checker does not read the network, the environment, or a token.
@@ -58,6 +58,10 @@ python -m pip install -r requirements.txt
 python -m graph.engine
 python -m pytest -q
 ```
+
+## Sweep-239 drift witness
+
+`graph.drift.name_drift` compares the locked 72 repository names to a frozen 2026-10-06 search of 83 names. It does not add artifacts, delete rows, or raise the claim. Eighteen names are observation-only. Seven catalog names are absent from that search, including two planned queue names (`sunder-aegis-bridge`, `clean-room-skill-export`) and a spelling variant `CFT-v3.3-IQG-Unified-Framework` versus observed `CFTv3.3-IQG-Unified-Framework`. Expanding the lock is operator-only.
 
 ## Sweep-125
 
