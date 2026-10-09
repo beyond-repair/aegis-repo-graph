@@ -8,6 +8,9 @@ from __future__ import annotations
 
 from .catalog import build_graph
 from .observed_2026_10_06 import OBSERVED_NAMES, OBSERVED_ON, SEARCH_TOTAL_COUNT
+from .observed_2026_10_09 import OBSERVED_NAMES as OBSERVED_NAMES_2026_10_09
+from .observed_2026_10_09 import OBSERVED_ON as OBSERVED_ON_2026_10_09
+from .observed_2026_10_09 import SEARCH_TOTAL_COUNT as SEARCH_TOTAL_COUNT_2026_10_09
 
 
 def catalog_repository_names() -> tuple[str, ...]:
@@ -30,4 +33,19 @@ def name_drift() -> dict[str, object]:
         "observed_count": len(observed),
         "observed_only": tuple(sorted(observed - catalog)),
         "catalog_only": tuple(sorted(catalog - observed)),
+    }
+
+
+def observation_reconfirm() -> dict[str, object]:
+    """Compare two frozen searches. Does not mutate the catalog."""
+    earlier = set(OBSERVED_NAMES)
+    later = set(OBSERVED_NAMES_2026_10_09)
+    return {
+        "earlier_on": OBSERVED_ON,
+        "later_on": OBSERVED_ON_2026_10_09,
+        "earlier_total_count": SEARCH_TOTAL_COUNT,
+        "later_total_count": SEARCH_TOTAL_COUNT_2026_10_09,
+        "later_only": tuple(sorted(later - earlier)),
+        "earlier_only": tuple(sorted(earlier - later)),
+        "name_set_equal": earlier == later,
     }

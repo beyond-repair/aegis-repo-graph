@@ -109,7 +109,7 @@ def test_unknown_lifecycle_and_cluster_are_rejected():
 
 
 def test_public_version():
-    assert __version__ == "0.1.2"
+    assert __version__ == "0.1.3"
 
 
 def test_module_entrypoint_matches_engine():
@@ -166,3 +166,21 @@ def test_observed_drift_does_not_mutate_lock():
         "docs",
         "sunder-aegis-bridge",
     )
+
+
+def test_2026_10_09_reconfirm_does_not_mutate_lock():
+    from graph.drift import observation_reconfirm
+
+    before = validate()
+    report = observation_reconfirm()
+    after = validate()
+    assert before.ok and after.ok
+    assert after.artifact_count == LOCKED_ARTIFACTS
+    assert after.relationship_count == LOCKED_RELATIONSHIPS
+    assert report["earlier_on"] == "2026-10-06"
+    assert report["later_on"] == "2026-10-09"
+    assert report["earlier_total_count"] == 83
+    assert report["later_total_count"] == 83
+    assert report["later_only"] == ()
+    assert report["earlier_only"] == ()
+    assert report["name_set_equal"] is True

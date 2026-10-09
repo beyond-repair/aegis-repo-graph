@@ -59,6 +59,11 @@ python -m graph.engine
 python -m pytest -q
 ```
 
+
+## Sweep-292 name reconfirm
+
+`graph.drift.observation_reconfirm` compares the frozen 2026-10-06 search of 83 names to a frozen 2026-10-09 search of 83 names. On this write the name sets are equal. It does not add artifacts, delete rows, or raise the claim. Expanding the 2026-09-04 lock remains operator-only. CI pins `actions/checkout` and `actions/setup-python` to full commit SHAs. A green run is not a live crawl and not FLS conformance.
+
 ## Sweep-239 drift witness
 
 `graph.drift.name_drift` compares the locked 72 repository names to a frozen 2026-10-06 search of 83 names. It does not add artifacts, delete rows, or raise the claim. Eighteen names are observation-only. Seven catalog names are absent from that search, including two planned queue names (`sunder-aegis-bridge`, `clean-room-skill-export`) and a spelling variant `CFT-v3.3-IQG-Unified-Framework` versus observed `CFTv3.3-IQG-Unified-Framework`. Expanding the lock is operator-only.
