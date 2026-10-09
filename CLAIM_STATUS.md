@@ -37,3 +37,5 @@
 - Observation-only names (18) and catalog-only names (7) are listed by `name_drift`. Expanding the lock is operator-only.
 
 - Sweep-292 records a second frozen search (2026-10-09, total_count 83, incomplete_results false, 83 items). `observation_reconfirm` reports the name set equal to the 2026-10-06 freeze. Claim remains ≤1. Catalog rows unchanged. Catalog claim integer 3 remains snapshot data. Census `not_built` freeze unchanged. No tag. No archive. Actions are pinned to commit SHAs. A later green CI run is an Actions conclusion only.
+
+- Sweep-292 CI: run 37934144237 conclusion success on b8a5c7f431ad8624503c92a47efad57af056a581. Actions conclusion only. Not evidence for catalog expansion, FLS conformance, or census built status.
