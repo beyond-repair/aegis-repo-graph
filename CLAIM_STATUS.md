@@ -39,3 +39,5 @@
 - Sweep-292 records a second frozen search (2026-10-09, total_count 83, incomplete_results false, 83 items). `observation_reconfirm` reports the name set equal to the 2026-10-06 freeze. Claim remains ≤1. Catalog rows unchanged. Catalog claim integer 3 remains snapshot data. Census `not_built` freeze unchanged. No tag. No archive. Actions are pinned to commit SHAs. A later green CI run is an Actions conclusion only.
 
 - Sweep-292 CI: run 37934144237 conclusion success on b8a5c7f431ad8624503c92a47efad57af056a581. Actions conclusion only. Not evidence for catalog expansion, FLS conformance, or census built status.
+
+- Sweep-331: Aligned `pyproject.toml` optional-dependencies pytest pin from 8.3.5 to 9.0.3 to match `requirements.txt` and the green CI run on main (run 38154316700 success on e0fe2750a7dcf979d0a2d1b4f279ac194bf69f4f, which addressed GHSA-6w46-j5rx-g56g). Catalog unchanged. Claim remains ≤1. Classification RESEARCH confirmed. Open Dependabot PR #3 may be stale relative to main. No claim elevation. No archive.
