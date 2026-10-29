@@ -14,6 +14,9 @@ from .observed_2026_10_09 import SEARCH_TOTAL_COUNT as SEARCH_TOTAL_COUNT_2026_1
 from .observed_2026_10_28 import OBSERVED_NAMES as OBSERVED_NAMES_2026_10_28
 from .observed_2026_10_28 import OBSERVED_ON as OBSERVED_ON_2026_10_28
 from .observed_2026_10_28 import SEARCH_TOTAL_COUNT as SEARCH_TOTAL_COUNT_2026_10_28
+from .observed_2026_10_29 import OBSERVED_NAMES as OBSERVED_NAMES_2026_10_29
+from .observed_2026_10_29 import OBSERVED_ON as OBSERVED_ON_2026_10_29
+from .observed_2026_10_29 import SEARCH_TOTAL_COUNT as SEARCH_TOTAL_COUNT_2026_10_29
 
 
 def catalog_repository_names() -> tuple[str, ...]:
@@ -63,6 +66,21 @@ def observation_reconfirm_2026_10_28() -> dict[str, object]:
         "later_on": OBSERVED_ON_2026_10_28,
         "earlier_total_count": SEARCH_TOTAL_COUNT_2026_10_09,
         "later_total_count": SEARCH_TOTAL_COUNT_2026_10_28,
+        "later_only": tuple(sorted(later - earlier)),
+        "earlier_only": tuple(sorted(earlier - later)),
+        "name_set_equal": earlier == later,
+    }
+
+
+def observation_reconfirm_2026_10_29() -> dict[str, object]:
+    """Compare 2026-10-28 frozen search to 2026-10-29. Does not mutate the catalog."""
+    earlier = set(OBSERVED_NAMES_2026_10_28)
+    later = set(OBSERVED_NAMES_2026_10_29)
+    return {
+        "earlier_on": OBSERVED_ON_2026_10_28,
+        "later_on": OBSERVED_ON_2026_10_29,
+        "earlier_total_count": SEARCH_TOTAL_COUNT_2026_10_28,
+        "later_total_count": SEARCH_TOTAL_COUNT_2026_10_29,
         "later_only": tuple(sorted(later - earlier)),
         "earlier_only": tuple(sorted(earlier - later)),
         "name_set_equal": earlier == later,
