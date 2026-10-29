@@ -11,6 +11,9 @@ from .observed_2026_10_06 import OBSERVED_NAMES, OBSERVED_ON, SEARCH_TOTAL_COUNT
 from .observed_2026_10_09 import OBSERVED_NAMES as OBSERVED_NAMES_2026_10_09
 from .observed_2026_10_09 import OBSERVED_ON as OBSERVED_ON_2026_10_09
 from .observed_2026_10_09 import SEARCH_TOTAL_COUNT as SEARCH_TOTAL_COUNT_2026_10_09
+from .observed_2026_10_28 import OBSERVED_NAMES as OBSERVED_NAMES_2026_10_28
+from .observed_2026_10_28 import OBSERVED_ON as OBSERVED_ON_2026_10_28
+from .observed_2026_10_28 import SEARCH_TOTAL_COUNT as SEARCH_TOTAL_COUNT_2026_10_28
 
 
 def catalog_repository_names() -> tuple[str, ...]:
@@ -37,7 +40,7 @@ def name_drift() -> dict[str, object]:
 
 
 def observation_reconfirm() -> dict[str, object]:
-    """Compare two frozen searches. Does not mutate the catalog."""
+    """Compare two frozen searches (06 to 09). Does not mutate the catalog."""
     earlier = set(OBSERVED_NAMES)
     later = set(OBSERVED_NAMES_2026_10_09)
     return {
@@ -45,6 +48,21 @@ def observation_reconfirm() -> dict[str, object]:
         "later_on": OBSERVED_ON_2026_10_09,
         "earlier_total_count": SEARCH_TOTAL_COUNT,
         "later_total_count": SEARCH_TOTAL_COUNT_2026_10_09,
+        "later_only": tuple(sorted(later - earlier)),
+        "earlier_only": tuple(sorted(earlier - later)),
+        "name_set_equal": earlier == later,
+    }
+
+
+def observation_reconfirm_2026_10_28() -> dict[str, object]:
+    """Compare 2026-10-09 frozen search to 2026-10-28. Does not mutate the catalog."""
+    earlier = set(OBSERVED_NAMES_2026_10_09)
+    later = set(OBSERVED_NAMES_2026_10_28)
+    return {
+        "earlier_on": OBSERVED_ON_2026_10_09,
+        "later_on": OBSERVED_ON_2026_10_28,
+        "earlier_total_count": SEARCH_TOTAL_COUNT_2026_10_09,
+        "later_total_count": SEARCH_TOTAL_COUNT_2026_10_28,
         "later_only": tuple(sorted(later - earlier)),
         "earlier_only": tuple(sorted(earlier - later)),
         "name_set_equal": earlier == later,
